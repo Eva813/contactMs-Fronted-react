@@ -45,7 +45,7 @@ export default function Login() {
             console.log(res);
             localStorage.setItem("token", res.data.token);
             setUser(res.data.user);
-            navigate("/");
+            navigate("/dashboard");
           }
         })
         .catch((error) => {

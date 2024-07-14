@@ -1,15 +1,15 @@
 import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import Home from './Pages/Home'
 import Register from './Pages/Register'
 import Login from './Pages/Login'
+import Dashboard from './Pages/Dashboard'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // import router from './routes'; 
 import { ToastContainer } from 'react-toastify'
 import { createContext } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
+import Contacts from './Components/Contacts'
 
 export const UserContext = createContext(null)
 
@@ -25,6 +25,16 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
+    children: [
+      {
+        index: true,
+        element: <Contacts />
+      }
+    ]
   }
 ])
 
