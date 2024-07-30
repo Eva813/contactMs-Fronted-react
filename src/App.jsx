@@ -11,6 +11,7 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import Contacts from './Components/Contacts'
 import AddContact from './Components/AddContact'
+import EditContact from './Components/EditContact'
 
 export const UserContext = createContext(null)
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/add-contact',
         element: <AddContact />
+      },
+      {
+        path: '/dashboard/edit-contact/:id',
+        element: <EditContact />
       }
     ]
   }

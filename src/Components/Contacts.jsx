@@ -4,6 +4,9 @@ import DataTable from "react-data-table-component";
 import { FaPenToSquare, FaRegTrashCan } from "react-icons/fa6";
 import "../assets/css/dashboard.css";
 import BounceLoader from "react-spinners/BounceLoader";
+import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 // 給 DataTable 用的自定義樣式
 // https://react-data-table-component.netlify.app/?path=/docs/api-custom-styles--docs
@@ -26,7 +29,9 @@ const Contacts = () => {
   const [loading, setLoading] = useState(true);
   const timeoutRef = useRef(null);
   const startTimeRef = useRef(null);
-  const MIN_LOADING_TIME = 5000; // 最小加載時間為5秒
+  const MIN_LOADING_TIME = 2000; // 最小加載時間為2秒
+  const MySwal = withReactContent(Swal);
+
   const columns = [
     {
       name: "Name",
@@ -45,17 +50,16 @@ const Contacts = () => {
       selector: (row) => (
         <>
           <div className="flex">
-            <FaPenToSquare className="table-icon1 mx-1 text-xl cursor-pointer text-green-600" />
-            <FaRegTrashCan className="table-icon2 mx-1 text-xl cursor-pointer text-red-600" />
+            <Link to={`/dashboard/edit-contact/${row._id}`}><FaPenToSquare className="table-icon1 mx-1 text-xl cursor-pointer text-green-600" /></Link>
+            <FaRegTrashCan className="table-icon2 mx-1 text-xl cursor-pointer text-red-600" onClick={() => handleDelete(row._id)} />
           </div>
         </>
       ),
     },
   ];
 
-  //   如果 API 在 5 秒內回應，載入狀態仍然會顯示整整 5 秒。
+  // 如果 API 在 5 秒內回應，載入狀態仍然會顯示整整 5 秒。
   // 如果 API 花費超過 5 秒，載入狀態將持續到數據被接收和處理完畢。
-  useEffect(() => {
     const fetchContacts = async () => {
       startTimeRef.current = Date.now();
       try {
@@ -70,17 +74,16 @@ const Contacts = () => {
       } catch (err) {
         console.log(err);
       } finally {
-        const elapsedTime = Date.now() - startTimeRef.current; // 計算 API 請求花費的時間
-        const remainingTime = Math.max(MIN_LOADING_TIME - elapsedTime, 0); // 計算剩餘時間
-        
+        const elapsedTime = Date.now() - startTimeRef.current;
+        const remainingTime = Math.max(MIN_LOADING_TIME - elapsedTime, 0);
+
         timeoutRef.current = setTimeout(() => {
           setLoading(false);
         }, remainingTime);
       }
     };
-
+  useEffect(() => {
     fetchContacts();
-
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -88,6 +91,48 @@ const Contacts = () => {
     };
   }, []);
 
+  const handleDelete = (id) => {
+    
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // call api...
+      axios
+        .delete(`http://localhost:3000/contactmsyt/contact/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          
+          MySwal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+          // 可以執行刪除操作，再重打一次 get 請求（http://127.0.0.1:3000/contactmsyt/contacts）
+          // 這樣就不用等待下一次渲染
+          fetchContacts();
+          
+        })
+        .catch((err) => {
+          MySwal.fire({
+            title: "Error!",
+            text: "Error Occurred",
+            icon: "error"
+          });
+        });
+
+      }
+    });
+  };
   return (
     <>
       {loading ? (
@@ -97,6 +142,7 @@ const Contacts = () => {
             size={50}
             aria-label="Loading Spinner"
             data-testid="loader"
+            color="#0e766e"
           ></BounceLoader>
         </div>
       ) : (
