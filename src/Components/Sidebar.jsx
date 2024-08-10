@@ -60,7 +60,7 @@ const Sidebar = () => {
         onClick={() => setActiveLink(3)}
       >
         <Link
-          to="/exit"
+          to="/logout"
           className={`sidebar-link no-underline text-[16px] font-bold flex items-center`}
         >
           <FaPowerOff className="icon mr-[10px]" />

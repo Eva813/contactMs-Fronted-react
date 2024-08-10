@@ -12,6 +12,9 @@ import { useEffect } from 'react'
 import Contacts from './Components/Contacts'
 import AddContact from './Components/AddContact'
 import EditContact from './Components/EditContact'
+import Logout from './Components/Logout'
+import ProtectedRoutes from './Components/ProtectedRoutes'
+import NotFound from './Pages/NotFound'
 
 export const UserContext = createContext(null)
 
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: <ProtectedRoutes><Dashboard /></ProtectedRoutes>,
     children: [
       {
         index: true,
@@ -45,6 +48,14 @@ const router = createBrowserRouter([
         element: <EditContact />
       }
     ]
+  },
+  {
+    path: '/logout',
+    element: <Logout />
+  },
+  {
+    path: '*',
+    element: <NotFound />
   }
 ])
 
