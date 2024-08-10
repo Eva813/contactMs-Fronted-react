@@ -63,7 +63,7 @@ const Contacts = () => {
     const fetchContacts = async () => {
       startTimeRef.current = Date.now();
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/contactmsyt/contacts`, {
+        const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/contactmsyt/contacts`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -105,7 +105,7 @@ const Contacts = () => {
       if (result.isConfirmed) {
         // call api...
       axios
-        .delete(`${process.env.REACT_APP_API_URL}/contactmsyt/contact/${id}`, {
+        .delete(`${import.meta.env.REACT_APP_API_URL}/contactmsyt/contact/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
