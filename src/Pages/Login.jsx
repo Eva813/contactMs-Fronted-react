@@ -34,7 +34,7 @@ export default function Login() {
       // 調用 api 來創建新用戶
       console.log("API URL:", import.meta.env.VITE_API_URL);
       axios
-        .post(`${import.meta.env.REACT_APP_API_URL}/contactmsyt/login`, values)
+        .post(`${import.meta.env.VITE_API_URL}/contactmsyt/login`, values)
         .then((res) => {
           if (res.data.success) {
             // 成功創建新用戶，要有提示
