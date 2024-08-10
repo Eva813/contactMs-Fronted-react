@@ -63,7 +63,7 @@ const Contacts = () => {
     const fetchContacts = async () => {
       startTimeRef.current = Date.now();
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/contactmsyt/contacts`, {
+        const res = await axios.get(`https://contact-ms-backend-node.vercel.app/contactmsyt/contacts`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -105,7 +105,7 @@ const Contacts = () => {
       if (result.isConfirmed) {
         // call api...
       axios
-        .delete(`${import.meta.env.VITE_API_URL}/contactmsyt/contact/${id}`, {
+        .delete(`https://contact-ms-backend-node.vercel.app/contactmsyt/contact/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

@@ -64,7 +64,7 @@ function App() {
   // check the auth token
   // 如：即便關掉分頁，再次打開時，也能保持登入狀態
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/contactmsyt/verify`, {
+    axios.get(`https://contact-ms-backend-node.vercel.app/contactmsyt/verify`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
