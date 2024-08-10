@@ -123,7 +123,7 @@ export default function Login() {
         <p>
           Do not have account?{" "}
           <Link
-            to="/login"
+            to="/register"
             className="text-teal-700 underline underline-offset-2"
           >
             Register
