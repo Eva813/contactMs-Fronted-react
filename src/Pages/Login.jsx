@@ -33,7 +33,7 @@ export default function Login() {
       // if all fields are empty，it is no front error
       // 調用 api 來創建新用戶
       axios
-        .post("http://127.0.0.1:3000/contactmsyt/login", values)
+        .post(`${process.env.REACT_APP_API_URL}/contactmsyt/login`, values)
         .then((res) => {
           if (res.data.success) {
             // 成功創建新用戶，要有提示

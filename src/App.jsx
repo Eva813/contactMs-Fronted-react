@@ -64,7 +64,7 @@ function App() {
   // check the auth token
   // 如：即便關掉分頁，再次打開時，也能保持登入狀態
   useEffect(() => {
-    axios.get('http://127.0.0.1:3000/contactmsyt/verify', {
+    axios.get(`${process.env.REACT_APP_API_URL}/contactmsyt/verify`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

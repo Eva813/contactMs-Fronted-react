@@ -32,7 +32,7 @@ const AddContact = () => {
 
       // 調用 api 來創建新用戶
       axios
-        .post("http://127.0.0.1:3000/contactmsyt/add-contact", values, {
+        .post(`${process.env.REACT_APP_API_URL}/contactmsyt/add-contact`, values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

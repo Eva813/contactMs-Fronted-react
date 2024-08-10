@@ -33,7 +33,7 @@ const EditContact = () => {
 
       // 調用 api 來創建新用戶
       axios
-        .put("http://127.0.0.1:3000/contactmsyt/update-contact/"+id, values, {
+        .put(`${process.env.REACT_APP_API_URL}/contactmsyt/update-contact/`+id, values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -66,7 +66,7 @@ const EditContact = () => {
     const fetchContacts = async () => {
       
       try {
-        const res = await axios.get("http://127.0.0.1:3000/contactmsyt/contact/"+id, {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/contactmsyt/contact/`+id, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
