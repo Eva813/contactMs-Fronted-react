@@ -32,7 +32,7 @@ const AddContact = () => {
 
       // 調用 api 來創建新用戶
       axios
-        .post(`https://contact-ms-backend-node.vercel.app/contactmsyt/add-contact`, values, {
+        .post(`${import.meta.env.VITE_API_URL}/contactmsyt/add-contact`, values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

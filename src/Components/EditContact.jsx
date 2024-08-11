@@ -33,7 +33,7 @@ const EditContact = () => {
 
       // 調用 api 來創建新用戶
       axios
-        .put(`https://contact-ms-backend-node.vercel.app/contactmsyt/update-contact/`+id, values, {
+        .put(`${import.meta.env.VITE_API_URL}/contactmsyt/update-contact/`+id, values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -66,7 +66,7 @@ const EditContact = () => {
     const fetchContacts = async () => {
       
       try {
-        const res = await axios.get(`https://contact-ms-backend-node.vercel.app/contactmsyt/contact/`+id, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/contactmsyt/contact/`+id, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
