@@ -26,6 +26,10 @@ jobs:
 
     - name: Install Playwright dependencies
       run: npx playwright install-deps
+      
+    # 新增這個步驟來安裝 Playwright 瀏覽器
+    - name: Install Playwright browsers
+      run: npx playwright install
 
     - name: Load environment variables from .env.production
       run: |
