@@ -8,7 +8,7 @@ export default function NavBar() {
   return (
     <div className="bg-teal-700 text-white flex justify-between p-3 px-11">
       <div className="flex items-center">
-        <Link to="/" className="text-3xl mr-5 no-underline text-white">
+        <Link to="/" className="text-3xl mr-5 no-underline text-white" aria-label="Return to homepage">
           CONTACT MS
         </Link>
       </div>
