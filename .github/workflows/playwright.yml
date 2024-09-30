@@ -1,0 +1,45 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright dependencies
+      run: npx playwright install-deps
+      
+    # 新增這個步驟來安裝 Playwright 瀏覽器
+    - name: Install Playwright browsers
+      run: npx playwright install
+
+    - name: Load environment variables from .env.production
+      run: |
+        echo "BASE_URL=$(grep 'BASE_URL' .env.production | cut -d '=' -f2)" >> $GITHUB_ENV
+
+    - name: Run Playwright tests
+      run: npx playwright test --config=playwright.config.ts
+
+    - name: Upload Playwright results
+      uses: actions/upload-artifact@v3
+      with:
+        name: playwright-results
+        path: playwright-report
