@@ -31,13 +31,13 @@ jobs:
     - name: Install Playwright browsers
       run: npx playwright install
 
-    - name: Check environment variables
-      run: |
-        echo "BASE_URL: ${{ secrets.BASE_URL }}"
-
     - name: Set environment variables
       run: |
         echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
+
+    - name: Check environment variables
+      run: |
+        echo "BASE_URL: $BASE_URL"
 
     - name: Run Playwright tests
       run: npx playwright test --config=playwright.config.ts
