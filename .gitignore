@@ -28,4 +28,3 @@ dist-ssr
 /playwright/.cache/
 # Ignore environment files
 *.env
-*.env.production
