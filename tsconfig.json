@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    // ... 其他配置
+  }
+}
