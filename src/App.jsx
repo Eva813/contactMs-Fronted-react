@@ -61,7 +61,7 @@ const router = createBrowserRouter([
 
 function App() {
   const [user, setUser] = useState(null)
-  // check the auth token
+  // check the auth token of the user
   // 如：即便關掉分頁，再次打開時，也能保持登入狀態
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/contactmsyt/verify`, {
@@ -75,15 +75,15 @@ function App() {
       }
     }).catch((error) => {
       console.log(error)
-    
+
     })
   }, [])
   return (
     <>
-    <ToastContainer />
-    <UserContext.Provider value={{ user, setUser }}>
-      <RouterProvider router={router} />
-    </UserContext.Provider>
+      <ToastContainer />
+      <UserContext.Provider value={{ user, setUser }}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
     </>
   )
 }

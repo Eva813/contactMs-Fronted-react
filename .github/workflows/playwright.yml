@@ -34,12 +34,17 @@ jobs:
     - name: Load environment variables from .env.production
       run: |
         echo "BASE_URL=$(grep 'BASE_URL' .env.production | cut -d '=' -f2)" >> $GITHUB_ENV
+    
+    - name: Set environment variables from secrets
+      run: |
+        echo "TEST_EMAIL=${{ secrets.TEST_EMAIL }}" >> $GITHUB_ENV
+        echo "TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}" >> $GITHUB_ENV
 
     - name: Run Playwright tests
       run: npx playwright test --config=playwright.config.ts
 
     - name: Upload Playwright results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: playwright-results
         path: playwright-report
